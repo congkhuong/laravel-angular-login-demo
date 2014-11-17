@@ -54,9 +54,7 @@ class UserAngularController extends BaseController {
             foreach ($messages->all() as $message){
                 $messagesrs .= $message.'<br>';
             }
-            
-        	$response["status"] = "error";
-            $response["message"] = $messagesrs;
+            $this->messagereturn('error' , $messagesrs);
             
         }else{
             $user = new User();
@@ -65,11 +63,10 @@ class UserAngularController extends BaseController {
             $user->save();
             Auth::loginUsingId($user->id);
 
-            $response["status"] = "success";
-            $response["message"] = "User account created successfully";
-            $response["uid"] = $user->id;
+            $this->messagereturn('success' , 'User account created successfully', $user->id);
+            
         }
-        echo json_encode($response);
+        //echo json_encode($response);
 	}
 
     /**
@@ -86,13 +83,10 @@ class UserAngularController extends BaseController {
         );
         
         if(Auth::attempt($user)){
-            $response["status"] = "success";
-            $response["message"] = "You logined successfully.";
+            $this->messagereturn('success' , 'You logged in successfully.');
         }else {
-            $response["status"] = "error";
-            $response["message"] = "Your username/password combination was incorrect.";
+            $this->messagereturn('error' , 'Your username/password combination was incorrect.');
         }
-        echo json_encode($response);
     }
 
     /**
@@ -106,12 +100,11 @@ class UserAngularController extends BaseController {
     /**
      * Message return.
      */
-    protected function messagereturn($status , $message){
+    protected function messagereturn($status , $message, $uid = null){
         $response = array();
         $response['status'] = $status;
         $response['message'] = $message;
+        $response['uid'] = $uid;
         echo json_encode($response);
-        //return Response::json($response);
-        //exit();
     }
 }
