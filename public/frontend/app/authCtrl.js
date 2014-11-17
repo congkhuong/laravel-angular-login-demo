@@ -21,7 +21,7 @@ app.controller('authCtrl', function ($scope, $rootScope, $routeParams, $location
             if (results.status == "success") {
                 $location.path('dashboard');
             }else{
-                alert('vdsv');
+                //alert('vdsv');
             }
         });
     };
