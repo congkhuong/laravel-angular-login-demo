@@ -3,7 +3,7 @@ laravel-angular-login-demo
 
 Only 4 steps to set up:
 
-1/ Clone code
+1/ Clone code from github
 
 2/ Run: composer install
 
